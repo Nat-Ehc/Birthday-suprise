@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Birthday Surprise</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #fff0f5, #ffe4ec);
+      font-family: 'Dancing Script', cursive;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .lighting {
+      position: fixed;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: radial-gradient(circle, rgba(255,255,204,0.3) 10%, transparent 70%) center center / 20% 20% repeat;
+      animation: rotate 20s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    h1, #message, .cake-container {
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 72px;
+      color: #e91e63;
+      margin-top: 60px;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 4px #fff;
+      z-index: 1;
+      animation: fadeInUp 2s ease forwards;
+      animation-delay: 0.5s;
+    }
+
+    .cake-container {
+      transform: scale(0.8);
+      position: relative;
+      margin-top: 80px;
+      z-index: 1;
+      animation: fadeInUp 2s ease forwards;
+      animation-delay: 1s;
+    }
+
+    #message {
+      margin-top: 40px;
+      font-size: 30px;
+      color: #d81b60;
+      text-shadow: 1px 1px 2px #fff;
+      animation: fadeInUp 2s ease forwards;
+      animation-delay: 1.8s;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cake {
+      position: relative;
+      width: 280px;
+      height: 200px;
+    }
+
+    .layer {
+      position: absolute;
+      width: 100%;
+      height: 60px;
+      background: linear-gradient(to bottom, #ff8da5, #ff4f7a);
+      border-radius: 20px 20px 10px 10px;
+      box-shadow: inset 0 -4px 0 #d6336c;
+    }
+
+    .layer:nth-child(2) {
+      top: 55px;
+      z-index: 2;
+      background: linear-gradient(to bottom, #ffb6c1, #ff6f91);
+    }
+
+    .layer:nth-child(3) {
+      top: 110px;
+      z-index: 1;
+      background: linear-gradient(to bottom, #ffccd5, #ff85a1);
+    }
+
+    .drip {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 15px;
+      background: radial-gradient(#5d2a42 20%, #3e1d2d 90%);
+      border-radius: 0 0 50% 50%;
+      z-index: 4;
+    }
+
+    .plate {
+      width: 320px;
+      height: 20px;
+      background: #ddd;
+      border-radius: 50%;
+      position: absolute;
+      bottom: -20px;
+      left: -20px;
+      box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2);
+      z-index: 0;
+    }
+
+    .candle {
+      position: absolute;
+      width: 10px;
+      height: 50px;
+      background: repeating-linear-gradient(45deg, #fff176, #fff176 4px, #fbc02d 4px, #fbc02d 8px);
+      border-radius: 2px;
+      top: -50px;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 6;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 1.5s;
+    }
+
+    .flame {
+      position: absolute;
+      top: -30px;
+      width: 14px;
+      height: 30px;
+      background: radial-gradient(circle at 50% 20%, #ffe082, #ff7043 60%);
+      clip-path: polygon(50% 0%, 70% 25%, 80% 50%, 60% 100%, 40% 100%, 20% 50%, 30% 25%);
+      animation: flicker 0.3s infinite alternate;
+      box-shadow: 0 0 15px 5px rgba(255, 193, 7, 0.4);
+      transform-origin: center;
+    }
+
+    @keyframes flicker {
+      from { transform: scale(1) rotate(-1deg); opacity: 1; }
+      to { transform: scale(1.1) rotate(1deg); opacity: 0.9; }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .hide {
+      transform: scale(0.5);
+      opacity: 0;
+      transition: all 2s ease;
+    }
+
+    .letter {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80%;
+      max-width: 600px;
+      padding: 40px;
+      background: #fffef9;
+      border: 10px double #d4af37;
+      border-radius: 30px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.2);
+      font-family: 'Times New Roman', serif;
+      font-size: 20px;
+      text-align: center;
+      line-height: 1.8;
+      color: #4a2c2a;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      opacity: 0;
+      animation: showLetter 2s ease forwards;
+    }
+
+    @keyframes showLetter {
+      from { opacity: 0; transform: translate(-50%, -40%) scale(0.9); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="lighting"></div>
+
+  <h1 id="title">Happy Birthday</h1>
+
+  <div class="cake-container" id="cakeContainer">
+    <div class="cake" id="cake">
+      <div class="drip"></div>
+      <div class="layer"></div>
+      <div class="layer"></div>
+      <div class="layer"></div>
+      <div class="plate"></div>
+    </div>
+  </div>
+
+  <div id="message">Touch the candles!!</div>
+
+  <div class="letter" id="letter">
+    Happy birthday to my amor<br><br>
+    Wish you get all the happiness you deserve for.<br>
+    I wish you nothing but to be with you forever.<br>
+    Not today but one day we will be celebrating your birthday together.<br>
+    May this distance never keep us apart.<br>
+    Far from each other but always close to my heart.
+  </div>
+
+  <script>
+    const cake = document.getElementById('cake');
+    const numCandles = 12;
+    const radius = 120;
+
+    for (let i = 0; i < numCandles; i++) {
+      const angle = (360 / numCandles) * i;
+      const x = 140 + radius * Math.cos((angle * Math.PI) / 180) - 5;
+      const candle = document.createElement('div');
+      candle.className = 'candle';
+      candle.style.left = `${x}px`;
+
+      const flame = document.createElement('div');
+      flame.className = 'flame';
+      candle.appendChild(flame);
+
+      cake.appendChild(candle);
+    }
+
+    const candles = document.querySelectorAll('.candle');
+    const flames = document.querySelectorAll('.flame');
+    const cakeContainer = document.getElementById('cakeContainer');
+    const message = document.getElementById('message');
+    const title = document.getElementById('title');
+    const letter = document.getElementById('letter');
+
+    function extinguishCandles() {
+      flames.forEach(f => {
+        f.style.animation = 'fadeOut 1s ease forwards';
+      });
+
+      cakeContainer.classList.add('hide');
+      message.classList.add('hide');
+      title.classList.add('hide');
+
+      setTimeout(() => {
+        letter.style.display = 'block';
+      }, 2000);
+    }
+
+    candles.forEach(candle => {
+      candle.addEventListener('click', extinguishCandles);
+      candle.addEventListener('touchstart', extinguishCandles);
+    });
+  </script>
+</body>
+</html>
